@@ -1,6 +1,9 @@
 package com.masterandroid.viewpager;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 import android.view.View;
@@ -8,25 +11,30 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.masterandroid.viewpager.fragments.PageFragment1;
+import com.masterandroid.viewpager.fragments.PageFragment2;
+import com.masterandroid.viewpager.fragments.PageFragment3;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
-    Button buton1;
-    EditText edit1;
-    TextView txt1;
+
+    private ViewPager pager;
+    private PagerAdapter pagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        buton1 = findViewById(R.id.button1);
-        edit1 = findViewById(R.id.editText);
-        txt1 = findViewById(R.id.text1);
 
-        buton1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               String text = edit1.getText().toString();
-               txt1.setText(text);
-            }
-        });
+        List<Fragment> list = new ArrayList<>();
+        list.add(new PageFragment1());
+        list.add(new PageFragment2());
+        list.add(new PageFragment3());
+
+        pager = findViewById(R.id.pager);
+        pagerAdapter = new SliderPagerAdapter(getSupportFragmentManager(), list);
+        pager.setAdapter(pagerAdapter);
     }
 }
